@@ -1,0 +1,25 @@
+{
+  "name": "node-supervisor",
+  "version": "0.1.0",
+  "description": "Node app supervisor listens for uncaught exceptions and sends the error stack trace to you.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reigndesign/node-supervisor.git"
+  },
+  "keywords": [
+    "node",
+    "crashes",
+    "supervisor",
+    "crash"
+  ],
+  "author": "fluxa",
+  "license": "MPL2.0",
+  "bugs": {
+    "url": "https://github.com/reigndesign/node-supervisor/issues"
+  },
+  "homepage": "https://github.com/reigndesign/node-supervisor"
+}
