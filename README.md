@@ -1,4 +1,5 @@
 # node-supervisor
+Get notified when your app crashes by throwing uncaught exceptions!
 ## Usage example
 ```
 // Initialize supervisor
