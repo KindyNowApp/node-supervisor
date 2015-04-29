@@ -7,7 +7,7 @@ var Supervisor = function(options) {
   var emailTo    = options.emailTo;
   // var transporter = nodemailer.createTransport(options.transport);
 
-  var init = function() {
+  var _init = function() {
 
     process.on('uncaughtException', function (err) {
 
@@ -27,13 +27,13 @@ var Supervisor = function(options) {
     //     process.exit(1);
     //   });
     // });
+    });
   }
-
   /*
    * Expose public API calls
    */
 
-  this.init   = init;
+  this.init   = _init;
 
   return this;
-}
+};
