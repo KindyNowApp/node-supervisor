@@ -37,6 +37,7 @@ Supervisor.prototype.init = function() {
   process.on('uncaughtException', function (err) {
 
     console.log('supervisor => ' + err);
+    console.log(err.stack);
 
     var mailOptions = {
       from: _this.emailFrom,
