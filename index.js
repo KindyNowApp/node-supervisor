@@ -4,7 +4,6 @@ var pjson = require('../../package');
 
 
 module.exports = function(options) {
-
   if (typeof options === 'object') {
     return new Supervisor(options);
   }
@@ -36,8 +35,8 @@ Supervisor.prototype.init = function() {
 
   process.on('uncaughtException', function (err) {
 
-    console.log('supervisor => ' + err);
-    console.log(err.stack);
+    console.error('supervisor => ' + err);
+    console.error(err.stack);
 
     var mailOptions = {
       from: _this.emailFrom,
@@ -48,14 +47,43 @@ Supervisor.prototype.init = function() {
 
     _this.transporter.sendMail(mailOptions, function(err, info) {
       if(err) {
-        console.log('supervisor => send email error : %s',err);
+        console.error('supervisor => send email error : %s',err);
       } else {
-        console.log('supervisor => %s',JSON.stringify(info));
+        console.log('supervisor => %s',util.inspect(info));
       }
       process.exit(1);
     });
 
   });
+}
+
+Supervisor.prototype.notify = function(subject, body, callback) {
+
+  var message;
+
+  if(typeof body === 'string') {
+    message = body;
+  } else {
+    message = util.inspect(body);
+  }
+
+  var mailOptions = {
+    from: this.emailFrom,
+    to: this.emailTo,
+    subject: util.format('[%s | %s] Supervisor: %s',this.appName,this.appEnv,subject),
+    text: message
+  };
+
+  this.transporter.sendMail(mailOptions, function(err, info) {
+    if(err) {
+      console.error('supervisor => send email error : %s',err);
+      callback('Notification not sent, check console for errors');
+    } else {
+      console.log('supervisor => %s',util.inspect(info));
+      callback(null, 'notification sent');
+    }
+  });
+
 }
 
 Supervisor.prototype.test = function() {
